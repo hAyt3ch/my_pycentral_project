@@ -35,6 +35,17 @@ def extract_snr(payload: dict[str, Any]) -> Optional[float]:
     return None
 
 
+def renew_access_token(token_file: str, app_name: str = "new_central") -> str:
+    """Renew the access token for the given application and save it back to the token file."""
+    if not os.path.exists(token_file):
+        raise FileNotFoundError(f"Token file '{token_file}' not found")
+
+    with NewCentralBase(token_info=token_file) as conn:
+        new_token = conn.create_token(app_name)
+
+    return new_token
+
+
 def fetch_client_snr(
     token_file: str,
     site_id: Optional[str] = None,
@@ -44,6 +55,7 @@ def fetch_client_snr(
     if not os.path.exists(token_file):
         raise FileNotFoundError(f"Token file '{token_file}' not found")
 
+    results: list[dict[str, Any]] = []
     with NewCentralBase(token_info=token_file) as conn:
         items = Clients.get_all_clients(
             central_conn=conn,
@@ -51,24 +63,22 @@ def fetch_client_snr(
             site_name=site_name,
         )
 
-    results: list[dict[str, Any]] = []
-    for item in items:
-        client_mac = item.get("clientMac") or item.get("mac") or item.get("id")
-        snr = extract_snr(item)
+        for item in items:
+            client_mac = item.get("clientMac") or item.get("mac") or item.get("id")
+            snr = extract_snr(item)
 
-        if snr is None and client_mac:
-            with NewCentralBase(token_info=token_file) as conn:
+            if snr is None and client_mac:
                 details = Clients.get_client_details(central_conn=conn, client_mac=client_mac)
-            if isinstance(details, dict):
-                snr = extract_snr(details)
+                if isinstance(details, dict):
+                    snr = extract_snr(details)
 
-        results.append(
-            {
-                "clientMac": client_mac,
-                "status": item.get("status"),
-                "snr": snr,
-            }
-        )
+            results.append(
+                {
+                    "clientMac": client_mac,
+                    "status": item.get("status"),
+                    "snr": snr,
+                }
+            )
 
     return results
 
@@ -78,8 +88,15 @@ def main() -> None:
     parser.add_argument("--token-file", default="/home/blackhole/my_project/src/my_project/token.yaml")
     parser.add_argument("--site-id")
     parser.add_argument("--site-name")
+    parser.add_argument("--renew-token", action="store_true", help="Renew the configured access token in the token file")
+    parser.add_argument("--app-name", default="new_central", choices=["new_central", "glp"], help="Application to renew when --renew-token is used")
     parser.add_argument("--output", help="Optional JSON file to write results to")
     args = parser.parse_args()
+
+    if args.renew_token:
+        token = renew_access_token(token_file=args.token_file, app_name=args.app_name)
+        print(f"Renewed token for {args.app_name}: {token}")
+        return
 
     results = fetch_client_snr(
         token_file=args.token_file,

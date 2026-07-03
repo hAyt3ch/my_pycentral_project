@@ -1,0 +1,87 @@
+[
+  {
+    "clientMac": "c8:96:65:e8:9e:fb",
+    "status": "Connected",
+    "snr": 63.0
+  },
+  {
+    "clientMac": "66:3f:54:1e:e3:c1",
+    "status": "Connected",
+    "snr": 34.0
+  },
+  {
+    "clientMac": "80:07:94:de:81:bd",
+    "status": "Connected",
+    "snr": 25.0
+  },
+  {
+    "clientMac": "d4:f5:47:11:02:70",
+    "status": "Connected",
+    "snr": 33.0
+  },
+  {
+    "clientMac": "d4:9d:c0:b1:50:ea",
+    "status": "Connected",
+    "snr": 60.0
+  },
+  {
+    "clientMac": "bc:10:2f:6a:85:25",
+    "status": "Connected",
+    "snr": 44.0
+  },
+  {
+    "clientMac": "88:3d:24:05:d6:da",
+    "status": "Connected",
+    "snr": 0.0
+  },
+  {
+    "clientMac": "98:e7:f4:99:e3:af",
+    "status": "Connected",
+    "snr": 76.0
+  },
+  {
+    "clientMac": "a0:6a:44:9a:e3:f1",
+    "status": "Connected",
+    "snr": 72.0
+  },
+  {
+    "clientMac": "40:ca:63:05:f8:32",
+    "status": "Connected",
+    "snr": 39.0
+  },
+  {
+    "clientMac": "40:99:22:09:68:75",
+    "status": "Connected",
+    "snr": 36.0
+  },
+  {
+    "clientMac": "24:59:e5:7a:05:10",
+    "status": "Connected",
+    "snr": 64.0
+  },
+  {
+    "clientMac": "f0:f5:bd:21:d0:dc",
+    "status": "Connected",
+    "snr": 45.0
+  },
+  {
+    "clientMac": "44:27:45:b1:6c:37",
+    "status": "Connected",
+    "snr": 56.0
+  },
+  {
+    "clientMac": "44:27:45:c1:eb:e5",
+    "status": "Connected",
+    "snr": 42.0
+  },
+  {
+    "clientMac": "74:04:f1:4b:2e:9a",
+    "status": "Connected",
+    "snr": 40.0
+  },
+  {
+    "clientMac": "3a:31:ec:51:5e:3e",
+    "status": "Connected",
+    "snr": 50.0
+  }
+]
